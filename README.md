@@ -5,6 +5,4 @@
 + Nguyễn Đặng Hòa Thuận
 + Bá Thành Chí Khang
 + Nguyễn Công Thành
-Nhiệm vụ buổi sau
-điền thông tin phân công nhiệm vụ vào git project
-phân tích thiết kế lớp hướng đối tượng bằng bất cứ trình nào như canvas
+
