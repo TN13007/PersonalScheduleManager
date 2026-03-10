@@ -1,4 +1,4 @@
-public class ConsoleMenu
+public class Console-Menu
 {
     private ScheduleService _scheduleService;
     private InputHelper _inputHelper;
