@@ -1,0 +1,35 @@
+BỐN TÍNH CHẤT CỦA LẬP TRÌNH HƯỚNG ĐỐI TƯỢNG TRONG DỰ ÁN PERSONAL SCHEDULE MANAGER
+
+Tính đóng gói (Encapsulation)
+Đóng gói là nguyên lý che giấu dữ liệu bên trong đối tượng và chỉ cho phép truy cập hoặc thay đổi thông qua các phương thức được định nghĩa sẵn. Điều này giúp kiểm soát dữ liệu và tránh việc thay đổi không hợp lệ từ bên ngoài.
+
+Trong dự án PersonalScheduleManager, tính đóng gói được thể hiện ở việc các thuộc tính như Id, Title, Status, Priority, TimeRange được đặt bên trong class và không cho phép chỉnh sửa trực tiếp từ bên ngoài. Việc thêm, sửa, xóa công việc phải thông qua Schedule hoặc ScheduleService thay vì thao tác trực tiếp vào danh sách.
+
+Ngoài ra, lớp TimeRange cung cấp các phương thức như IsValid và Overlaps để kiểm tra tính hợp lệ và xung đột thời gian, thay vì cho phép thay đổi thời gian một cách tự do.
+
+Trong tương lai, có thể mở rộng bằng cách sử dụng private set cho các thuộc tính và cung cấp các phương thức chuyên biệt như MarkDone để thay đổi trạng thái thay vì cho phép chỉnh sửa trực tiếp.
+
+Tính kế thừa (Inheritance)
+Kế thừa cho phép một lớp con sử dụng lại các thuộc tính và phương thức của lớp cha, giúp giảm lặp code và dễ mở rộng hệ thống.
+
+Trong dự án, ScheduleItem là lớp trừu tượng đóng vai trò lớp cha. Các lớp như TaskItem, EventItem và ReminderItem kế thừa từ ScheduleItem. Mỗi lớp con có thể bổ sung thêm thuộc tính riêng, ví dụ TaskItem có Deadline, EventItem có Location, ReminderItem có NotifyAt.
+
+Nhờ cơ chế kế thừa, hệ thống có thể mở rộng thêm các loại công việc mới trong tương lai mà không cần thay đổi cấu trúc cốt lõi. Ví dụ có thể thêm RecurringEventItem hoặc StudySessionItem bằng cách kế thừa từ ScheduleItem.
+
+Tính đa hình (Polymorphism)
+Đa hình cho phép các đối tượng khác nhau được xử lý thông qua cùng một kiểu dữ liệu chung, nhưng hành vi có thể khác nhau tùy theo từng lớp cụ thể.
+
+Trong dự án, danh sách công việc được lưu dưới dạng List của ScheduleItem. Khi gọi phương thức Display hoặc GetTypeName, mỗi lớp con sẽ thực hiện hành vi riêng của mình thông qua cơ chế override. Điều này giúp hệ thống xử lý các loại công việc khác nhau mà không cần biết chính xác chúng thuộc loại nào.
+
+Trong tương lai, có thể mở rộng đa hình bằng cách bổ sung thêm các phương thức như GetSummary hoặc Export, và mỗi loại công việc sẽ có cách triển khai khác nhau.
+
+Tính trừu tượng (Abstraction)
+Trừu tượng là nguyên lý chỉ cung cấp những thông tin cần thiết và che giấu các chi tiết triển khai bên trong.
+
+Trong dự án, ScheduleItem được thiết kế là lớp abstract, chỉ định nghĩa những thuộc tính và phương thức chung. IScheduleRepository là interface giúp hệ thống không phụ thuộc vào cách lưu trữ cụ thể. Người dùng chỉ tương tác với ScheduleService mà không cần biết dữ liệu được lưu vào file JSON như thế nào.
+
+Builder Pattern cũng là một ví dụ của tính trừu tượng, vì nó che giấu quá trình tạo object phức tạp và cung cấp cách tạo đối tượng theo từng bước rõ ràng.
+
+Trong tương lai, có thể thay thế JsonScheduleRepository bằng các hình thức lưu trữ khác như database hoặc cloud mà không ảnh hưởng đến phần còn lại của hệ thống.
+
+Kết luận: Bốn tính chất của lập trình hướng đối tượng gồm đóng gói, kế thừa, đa hình và trừu tượng đều được áp dụng trong dự án PersonalScheduleManager. Việc áp dụng đúng các nguyên lý này giúp hệ thống dễ mở rộng, dễ bảo trì và có cấu trúc rõ ràng hơn.
