@@ -29,31 +29,61 @@ public class ReminderItem : ScheduleItem
 
     public override string Display()
     {
-        throw new NotImplementedException();
+        return $"[{GetTypeName()}] {Title} | Remind At: {RemindTime:yyyy-MM-dd HH:mm} | Priority: {Priority} | Status: {Status}";
     }
 
     public override string GetTypeName()
     {
-        throw new NotImplementedException();
+        return "Reminder";
     }
 
     public override bool IsValid()
     {
-        throw new NotImplementedException();
+        return !string.IsNullOrWhiteSpace(Title)
+            && RemindTime != default
+            && RemindOffset >= TimeSpan.Zero
+            && Enum.IsDefined(typeof(Priority), Priority)
+            && Enum.IsDefined(typeof(Status), Status);
     }
 
     public override bool Overlaps(ScheduleItem other)
     {
-        throw new NotImplementedException();
+        if (other == null)
+        {
+            return false;
+        }
+
+        if (other is ReminderItem reminder)
+        {
+            return RemindTime == reminder.RemindTime;
+        }
+
+        if (other is TaskItem task)
+        {
+            return RemindTime == task.Deadline;
+        }
+
+        if (other is EventItem ev && ev.TimeRange != null && ev.TimeRange.IsValid())
+        {
+            return RemindTime >= ev.TimeRange.StartTime && RemindTime < ev.TimeRange.EndTime;
+        }
+
+        return false;
     }
 
     public void SetReminder(TimeSpan offset)
     {
-        throw new NotImplementedException();
+        if (offset < TimeSpan.Zero)
+        {
+            throw new ArgumentException("Offset cannot be negative.", nameof(offset));
+        }
+
+        _remindOffset = offset;
+        _remindTime = DateTime.Now.Add(offset);
     }
 
     public void SendNotification()
     {
-        throw new NotImplementedException();
+        _isNotified = true;
     }
 }

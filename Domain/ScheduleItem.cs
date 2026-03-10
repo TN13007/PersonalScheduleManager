@@ -47,8 +47,8 @@ public abstract class ScheduleItem
     {
         _id = Guid.NewGuid().ToString();
         _createdAt = DateTime.Now;
-        _status = Status.NotStarted;
-        _priority = Priority.Medium;
+        _status = Status.Planned;
+        _priority = Priority.Normal;
     }
 
     public abstract string Display();

@@ -23,16 +23,26 @@ public class TimeRange
 
     public bool IsValid()
     {
-        throw new NotImplementedException();
+        return _startTime < _endTime;
     }
 
     public bool Overlaps(TimeRange other)
     {
-        throw new NotImplementedException();
+        if (other == null || !IsValid() || !other.IsValid())
+        {
+            return false;
+        }
+
+        return _startTime < other.EndTime && other.StartTime < _endTime;
     }
 
     public TimeSpan GetDuration()
     {
-        throw new NotImplementedException();
+        if (!IsValid())
+        {
+            return TimeSpan.Zero;
+        }
+
+        return _endTime - _startTime;
     }
 }

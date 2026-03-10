@@ -29,31 +29,60 @@ public class EventItem : ScheduleItem
 
     public override string Display()
     {
-        throw new NotImplementedException();
+        string timeLabel = _timeRange == null
+            ? "N/A"
+            : $"{_timeRange.StartTime:yyyy-MM-dd HH:mm} - {_timeRange.EndTime:yyyy-MM-dd HH:mm}";
+
+        return $"[{GetTypeName()}] {Title} | Time: {timeLabel} | Location: {Location} | Priority: {Priority} | Status: {Status}";
     }
 
     public override string GetTypeName()
     {
-        throw new NotImplementedException();
+        return "Event";
     }
 
     public override bool IsValid()
     {
-        throw new NotImplementedException();
+        return !string.IsNullOrWhiteSpace(Title)
+            && _timeRange != null
+            && _timeRange.IsValid()
+            && !string.IsNullOrWhiteSpace(Location)
+            && Enum.IsDefined(typeof(Priority), Priority)
+            && Enum.IsDefined(typeof(Status), Status);
     }
 
     public override bool Overlaps(ScheduleItem other)
     {
-        throw new NotImplementedException();
+        if (_timeRange == null || !_timeRange.IsValid() || other == null)
+        {
+            return false;
+        }
+
+        if (other is EventItem ev && ev.TimeRange != null && ev.TimeRange.IsValid())
+        {
+            return _timeRange.Overlaps(ev.TimeRange);
+        }
+
+        if (other is TaskItem task)
+        {
+            return task.Deadline >= _timeRange.StartTime && task.Deadline < _timeRange.EndTime;
+        }
+
+        if (other is ReminderItem reminder)
+        {
+            return reminder.RemindTime >= _timeRange.StartTime && reminder.RemindTime < _timeRange.EndTime;
+        }
+
+        return false;
     }
 
     public void EnableReminder()
     {
-        throw new NotImplementedException();
+        _isReminder = true;
     }
 
     public void DisableReminder()
     {
-        throw new NotImplementedException();
+        _isReminder = false;
     }
 }

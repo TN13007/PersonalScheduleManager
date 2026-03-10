@@ -1,7 +1,6 @@
 public enum Status
 {
-    NotStarted,
-    InProgress,
-    Completed,
-    Cancelled
+    Planned,
+    Done,
+    Canceled
 }
