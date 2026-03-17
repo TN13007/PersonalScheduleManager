@@ -9,31 +9,36 @@ public class TaskItemBuilder
 
     public TaskItemBuilder WithTitle(string title)
     {
-        throw new NotImplementedException();
+        _taskItem.Title = title;
+        return this;
     }
 
     public TaskItemBuilder WithDescription(string description)
     {
-        throw new NotImplementedException();
+        _taskItem.Description = description;
+        return this;
     }
 
     public TaskItemBuilder WithPriority(Priority priority)
     {
-        throw new NotImplementedException();
+        _taskItem.Priority = priority;
+        return this;
     }
 
     public TaskItemBuilder WithDeadline(DateTime deadline)
     {
-        throw new NotImplementedException();
+        _taskItem.Deadline = deadline;
+        return this;
     }
 
     public TaskItemBuilder WithStatus(Status status)
     {
-        throw new NotImplementedException();
+        _taskItem.Status = status;
+        return this;
     }
 
     public TaskItem Build()
     {
-        throw new NotImplementedException();
+        return _taskItem;
     }
 }
