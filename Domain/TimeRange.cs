@@ -15,7 +15,7 @@ public class TimeRange
         set { _endTime = value; }
     }
 
-    public TimeRange(DateTime startTime, DateTime endTime)
+    public TimeRange(DateTime startTime, DateTime endTime)//abc
     {
         _startTime = startTime;
         _endTime = endTime;
