@@ -9,36 +9,42 @@ public class ReminderItemBuilder
 
     public ReminderItemBuilder WithTitle(string title)
     {
-        throw new NotImplementedException();
+        _reminderItem.Title = title;
+        return this;
     }
 
     public ReminderItemBuilder WithDescription(string description)
     {
-        throw new NotImplementedException();
+        _reminderItem.Description = description;
+        return this;
     }
 
     public ReminderItemBuilder WithPriority(Priority priority)
     {
-        throw new NotImplementedException();
+        _reminderItem.Priority = priority;
+        return this;
     }
 
     public ReminderItemBuilder WithRemindTime(DateTime remindTime)
     {
-        throw new NotImplementedException();
+        _reminderItem.RemindTime = remindTime;
+        return this;
     }
 
     public ReminderItemBuilder WithRemindOffset(TimeSpan offset)
     {
-        throw new NotImplementedException();
+        _reminderItem.RemindOffset = offset;
+        return this;
     }
 
     public ReminderItemBuilder WithStatus(Status status)
     {
-        throw new NotImplementedException();
+        _reminderItem.Status = status;
+        return this;
     }
 
     public ReminderItem Build()
     {
-        throw new NotImplementedException();
+        return _reminderItem;
     }
 }

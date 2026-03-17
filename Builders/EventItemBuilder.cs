@@ -9,41 +9,48 @@ public class EventItemBuilder
 
     public EventItemBuilder WithTitle(string title)
     {
-        throw new NotImplementedException();
+        _eventItem.Title = title;
+        return this;
     }
 
     public EventItemBuilder WithDescription(string description)
     {
-        throw new NotImplementedException();
+        _eventItem.Description = description;
+        return this;
     }
 
     public EventItemBuilder WithPriority(Priority priority)
     {
-        throw new NotImplementedException();
+        _eventItem.Priority = priority;
+        return this;
     }
 
     public EventItemBuilder WithTimeRange(TimeRange timeRange)
     {
-        throw new NotImplementedException();
+        _eventItem.TimeRange = timeRange;
+        return this;
     }
 
     public EventItemBuilder WithLocation(string location)
     {
-        throw new NotImplementedException();
+        _eventItem.Location = location;
+        return this;
     }
 
     public EventItemBuilder WithReminder(bool isReminder)
     {
-        throw new NotImplementedException();
+        _eventItem.IsReminder = isReminder;
+        return this;
     }
 
     public EventItemBuilder WithStatus(Status status)
     {
-        throw new NotImplementedException();
+        _eventItem.Status = status;
+        return this;
     }
 
     public EventItem Build()
     {
-        throw new NotImplementedException();
+        return _eventItem;
     }
 }
