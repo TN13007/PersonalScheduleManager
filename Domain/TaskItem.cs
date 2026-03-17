@@ -1,22 +1,28 @@
-using System;
+﻿using System;
 
+/// Đại diện cho một công việc (Task) trong hệ thống lịch.
+/// Mỗi công việc có một thời hạn hoàn thành (Deadline) và trạng thái hoàn thành.
 public class TaskItem : ScheduleItem
 {
+    /// Lưu thời hạn hoàn thành của công việc.
     private DateTime _deadline;
+    /// Cho biết công việc đã được hoàn thành hay chưa.
     private bool _isCompleted;
 
+    /// Lấy hoặc thiết lập thời hạn hoàn thành của công việc.
     public DateTime Deadline
     {
         get { return _deadline; }
         set { _deadline = value; }
     }
-
+    /// Lấy hoặc thiết lập trạng thái hoàn thành của công việc.
     public bool IsCompleted
     {
         get { return _isCompleted; }
         set { _isCompleted = value; }
     }
-
+    /// Khởi tạo một đối tượng TaskItem mới.
+    /// Mặc định công việc chưa được hoàn thành.
     public TaskItem()
     {
         _isCompleted = false;
@@ -36,10 +42,12 @@ public class TaskItem : ScheduleItem
         return result;
     }
 
+
     public override string GetTypeName()
     {
         return "Task";
     }
+
 
     public override bool IsValid()
     {
@@ -68,10 +76,7 @@ public class TaskItem : ScheduleItem
 
     public override bool Overlaps(ScheduleItem other)
     {
-        if (other == null)
-        {
-            return false;
-        }
+
 
         TaskItem? task = other as TaskItem;
         if (task != null)
@@ -103,7 +108,10 @@ public class TaskItem : ScheduleItem
                 }
             }
         }
-
+        if (other == null)
+        {
+            return false;
+        }
         return false;
     }
 

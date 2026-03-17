@@ -1,22 +1,26 @@
 using System;
 
+
+
 public class ReminderItem : ScheduleItem
 {
-    private DateTime _remindTime;
     private TimeSpan _remindOffset;
-    private bool _isNotified;
 
+    private DateTime _remindTime;
+
+    private bool _isNotified;
+    public TimeSpan RemindOffset
+    {
+        get { return _remindOffset; }
+        set { _remindOffset = value; }
+    }
     public DateTime RemindTime
     {
         get { return _remindTime; }
         set { _remindTime = value; }
     }
 
-    public TimeSpan RemindOffset
-    {
-        get { return _remindOffset; }
-        set { _remindOffset = value; }
-    }
+
 
     public bool IsNotified
     {
@@ -80,10 +84,7 @@ public class ReminderItem : ScheduleItem
 
     public override bool Overlaps(ScheduleItem other)
     {
-        if (other == null)
-        {
-            return false;
-        }
+
 
         ReminderItem? reminder = other as ReminderItem;
         if (reminder != null)
@@ -115,7 +116,10 @@ public class ReminderItem : ScheduleItem
                 }
             }
         }
-
+        if (other == null)
+        {
+            return false;
+        }
         return false;
     }
 

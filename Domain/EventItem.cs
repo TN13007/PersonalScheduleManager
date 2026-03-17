@@ -2,15 +2,19 @@ using System;
 
 public class EventItem : ScheduleItem
 {
-    private TimeRange? _timeRange;
+    private TimeRange? _timeRange; private bool _isReminder;
     private string _location = "";
-    private bool _isReminder;
 
     public TimeRange? TimeRange
     {
         get { return _timeRange; }
         set { _timeRange = value; }
     }
+    public EventItem()
+    {
+        _isReminder = false;
+    }
+
 
     public string Location
     {
@@ -24,11 +28,6 @@ public class EventItem : ScheduleItem
         set { _isReminder = value; }
     }
 
-    public EventItem()
-    {
-        _isReminder = false;
-    }
-
     public override string Display()
     {
         string timeLabel;
@@ -39,8 +38,9 @@ public class EventItem : ScheduleItem
         }
         else
         {
-            string start = _timeRange.StartTime.ToString("yyyy-MM-dd HH:mm");
             string end = _timeRange.EndTime.ToString("yyyy-MM-dd HH:mm");
+            string start = _timeRange.StartTime.ToString("yyyy-MM-dd HH:mm");
+
             timeLabel = start + " - " + end;
         }
 
@@ -143,14 +143,14 @@ public class EventItem : ScheduleItem
 
         return false;
     }
-
+    public void DisableReminder()
+    {
+        _isReminder = false;
+    }
     public void EnableReminder()
     {
         _isReminder = true;
     }
 
-    public void DisableReminder()
-    {
-        _isReminder = false;
-    }
+
 }
