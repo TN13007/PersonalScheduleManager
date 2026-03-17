@@ -3,14 +3,13 @@ public class TimeRange
     private DateTime _startTime;
     private DateTime _endTime;
 
-   public DateTime StartTime
-    {
-        get { return _startTime; }
-    }
-
     public DateTime EndTime
     {
         get { return _endTime; }
+    }
+    public DateTime StartTime
+    {
+        get { return _startTime; }
     }
 
     public TimeRange(DateTime startTime, DateTime endTime)

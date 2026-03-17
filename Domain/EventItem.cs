@@ -4,23 +4,22 @@ public class EventItem : ScheduleItem
 {
     private TimeRange? _timeRange; private bool _isReminder;
     private string _location = "";
-
-    public TimeRange? TimeRange
+    public string Location
     {
-        get { return _timeRange; }
-        set { _timeRange = value; }
+        get { return _location; }
+        set { _location = value; }
     }
     public EventItem()
     {
         _isReminder = false;
     }
 
-
-    public string Location
+    public TimeRange? TimeRange
     {
-        get { return _location; }
-        set { _location = value; }
+        get { return _timeRange; }
+        set { _timeRange = value; }
     }
+
 
     public bool IsReminder
     {

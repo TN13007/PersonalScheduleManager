@@ -9,24 +9,24 @@ public class ReminderItem : ScheduleItem
     private DateTime _remindTime;
 
     private bool _isNotified;
-    public TimeSpan RemindOffset
+    public bool IsNotified
     {
-        get { return _remindOffset; }
-        set { _remindOffset = value; }
+        get { return _isNotified; }
+        set { _isNotified = value; }
     }
+    
     public DateTime RemindTime
     {
         get { return _remindTime; }
         set { _remindTime = value; }
     }
 
-
-
-    public bool IsNotified
+public TimeSpan RemindOffset
     {
-        get { return _isNotified; }
-        set { _isNotified = value; }
+        get { return _remindOffset; }
+        set { _remindOffset = value; }
     }
+
 
     public ReminderItem()
     {

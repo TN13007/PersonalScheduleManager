@@ -9,29 +9,22 @@ public abstract class ScheduleItem
     private Status _status;
     private DateTime _createdAt;
 
-    public string Id
-    {
-        get { return _id; }
-    }
-
     public string Title
     {
         get { return _title; }
         set { _title = value; }
     }
 
+
     public string Description
     {
         get { return _description; }
         set { _description = value; }
     }
-
-    public Priority Priority
+    public string Id
     {
-        get { return _priority; }
-        set { _priority = value; }
+        get { return _id; }
     }
-
     public Status Status
     {
         get { return _status; }
@@ -41,6 +34,11 @@ public abstract class ScheduleItem
     public DateTime CreatedAt
     {
         get { return _createdAt; }
+    }
+    public Priority Priority
+    {
+        get { return _priority; }
+        set { _priority = value; }
     }
 
     protected ScheduleItem()

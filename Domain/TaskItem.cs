@@ -9,18 +9,21 @@ public class TaskItem : ScheduleItem
     /// Cho biết công việc đã được hoàn thành hay chưa.
     private bool _isCompleted;
 
-    /// Lấy hoặc thiết lập thời hạn hoàn thành của công việc.
-    public DateTime Deadline
-    {
-        get { return _deadline; }
-        set { _deadline = value; }
-    }
+
     /// Lấy hoặc thiết lập trạng thái hoàn thành của công việc.
     public bool IsCompleted
     {
         get { return _isCompleted; }
         set { _isCompleted = value; }
     }
+
+    /// Lấy hoặc thiết lập thời hạn hoàn thành của công việc.
+    public DateTime Deadline
+    {
+        get { return _deadline; }
+        set { _deadline = value; }
+    }
+
     /// Khởi tạo một đối tượng TaskItem mới.
     /// Mặc định công việc chưa được hoàn thành.
     public TaskItem()
