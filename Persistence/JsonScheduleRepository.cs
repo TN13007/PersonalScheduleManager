@@ -1,6 +1,14 @@
+using System.Text.Json;
+
 public class JsonScheduleRepository : IScheduleRepository
 {
     private string _filePath;
+
+    private static readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
+    {
+        WriteIndented = true,
+        PropertyNameCaseInsensitive = true
+    };
 
     public string FilePath
     {
@@ -15,31 +23,38 @@ public class JsonScheduleRepository : IScheduleRepository
 
     public void Save(Schedule schedule)
     {
-        throw new NotImplementedException();
+        string json = SerializeSchedule(schedule);
+        File.WriteAllText(_filePath, json);
     }
 
     public Schedule Load()
     {
-        throw new NotImplementedException();
+        if (!Exists())
+            return new Schedule();
+
+        string json = File.ReadAllText(_filePath);
+        return DeserializeSchedule(json);
     }
 
     public void Delete()
     {
-        throw new NotImplementedException();
+        if (Exists())
+            File.Delete(_filePath);
     }
 
     public bool Exists()
     {
-        throw new NotImplementedException();
+        return File.Exists(_filePath);
     }
 
     private string SerializeSchedule(Schedule schedule)
     {
-        throw new NotImplementedException();
+        return JsonSerializer.Serialize(schedule, _jsonOptions);
     }
 
     private Schedule DeserializeSchedule(string jsonContent)
     {
-        throw new NotImplementedException();
+        Schedule? schedule = JsonSerializer.Deserialize<Schedule>(jsonContent, _jsonOptions);
+        return schedule ?? new Schedule();
     }
 }
