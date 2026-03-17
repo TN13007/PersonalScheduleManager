@@ -1,10 +1,13 @@
-using System;
+using System.Text.Json.Serialization;
 
+[JsonDerivedType(typeof(TaskItem), typeDiscriminator: "task")]
+[JsonDerivedType(typeof(EventItem), typeDiscriminator: "event")]
+[JsonDerivedType(typeof(ReminderItem), typeDiscriminator: "reminder")]
 public abstract class ScheduleItem
 {
-    private string _title = "";
-    private string _description = "";
     private string _id;
+    private string _title = string.Empty;
+    private string _description = string.Empty;
     private Priority _priority;
     private Status _status;
     private DateTime _createdAt;
@@ -12,6 +15,7 @@ public abstract class ScheduleItem
     public string Id
     {
         get { return _id; }
+        set { _id = value; }
     }
 
     public string Title
@@ -41,6 +45,7 @@ public abstract class ScheduleItem
     public DateTime CreatedAt
     {
         get { return _createdAt; }
+        set { _createdAt = value; }
     }
 
     protected ScheduleItem()

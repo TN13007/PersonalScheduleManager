@@ -15,6 +15,8 @@ public class TimeRange
         set { _endTime = value; }
     }
 
+    public TimeRange() { }
+
     public TimeRange(DateTime startTime, DateTime endTime)
     {
         _startTime = startTime;

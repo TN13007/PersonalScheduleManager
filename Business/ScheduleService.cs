@@ -23,51 +23,97 @@ public class ScheduleService
 
     public bool AddItemToSchedule(ScheduleItem item)
     {
-        throw new NotImplementedException();
+        if (!_validator.ValidateItem(item))
+            return false;
+
+        _schedule.AddItem(item);
+        return true;
     }
 
     public bool RemoveItemFromSchedule(string itemId)
     {
-        throw new NotImplementedException();
+        ScheduleItem? item = _schedule.GetItemById(itemId);
+        if (item == null)
+            return false;
+
+        _schedule.RemoveItem(itemId);
+        return true;
     }
 
     public bool UpdateItemInSchedule(ScheduleItem item)
     {
-        throw new NotImplementedException();
+        if (!_validator.ValidateItem(item))
+            return false;
+
+        ScheduleItem? existing = _schedule.GetItemById(item.Id);
+        if (existing == null)
+            return false;
+
+        _schedule.UpdateItem(item);
+        return true;
     }
 
     public List<ScheduleItem> GetAllItems()
     {
-        throw new NotImplementedException();
+        return _schedule.Items;
     }
 
     public List<ScheduleItem> GetItemsByDate(DateTime date)
     {
-        throw new NotImplementedException();
+        return _schedule.GetItemsByDate(date);
     }
 
     public List<ScheduleItem> GetItemsByPriority(Priority priority)
     {
-        throw new NotImplementedException();
+        return _schedule.GetItemsByPriority(priority);
     }
 
     public List<ScheduleItem> SearchItems(string keyword)
     {
-        throw new NotImplementedException();
+        return _schedule.SearchItems(keyword);
     }
 
     public List<ScheduleItem> GetConflictingItems(ScheduleItem item)
     {
-        throw new NotImplementedException();
+        List<ScheduleItem> conflicts = new List<ScheduleItem>();
+        List<ScheduleItem> allItems = _schedule.Items;
+        for (int i = 0; i < allItems.Count; i++)
+        {
+            if (allItems[i].Id != item.Id && allItems[i].Overlaps(item))
+            {
+                conflicts.Add(allItems[i]);
+            }
+        }
+        return conflicts;
     }
 
     public void DisplaySchedule()
     {
-        throw new NotImplementedException();
+        List<ScheduleItem> items = _schedule.Items;
+        if (items.Count == 0)
+        {
+            Console.WriteLine("No items in schedule.");
+            return;
+        }
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            Console.WriteLine($"  {i + 1}. {items[i].Display()}");
+        }
     }
 
     public void DisplayScheduleByDate(DateTime date)
     {
-        throw new NotImplementedException();
+        List<ScheduleItem> items = _schedule.GetItemsByDate(date);
+        if (items.Count == 0)
+        {
+            Console.WriteLine($"No items found for {date:yyyy-MM-dd}.");
+            return;
+        }
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            Console.WriteLine($"  {i + 1}. {items[i].Display()}");
+        }
     }
 }

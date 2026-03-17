@@ -3,7 +3,7 @@ using System;
 public class EventItem : ScheduleItem
 {
     private TimeRange? _timeRange;
-    private string _location = "";
+    private string _location = string.Empty;
     private bool _isReminder;
 
     public TimeRange? TimeRange
