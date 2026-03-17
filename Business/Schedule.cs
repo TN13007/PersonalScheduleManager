@@ -1,7 +1,7 @@
 public class Schedule
 {
     private string _id;
-    private string _name;
+    private string _name = "";
     private List<ScheduleItem> _items;
     private DateTime _createdAt;
     private DateTime _updatedAt;

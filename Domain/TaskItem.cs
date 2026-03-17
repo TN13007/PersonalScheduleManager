@@ -1,3 +1,5 @@
+using System;
+
 public class TaskItem : ScheduleItem
 {
     private DateTime _deadline;
@@ -22,7 +24,16 @@ public class TaskItem : ScheduleItem
 
     public override string Display()
     {
-        return $"[{GetTypeName()}] {Title} | Deadline: {Deadline:yyyy-MM-dd HH:mm} | Priority: {Priority} | Status: {Status}";
+        string deadlineText = Deadline.ToString("yyyy-MM-dd HH:mm");
+
+        string result =
+            "[" + GetTypeName() + "] " +
+            Title +
+            " | Deadline: " + deadlineText +
+            " | Priority: " + Priority +
+            " | Status: " + Status;
+
+        return result;
     }
 
     public override string GetTypeName()
@@ -32,10 +43,27 @@ public class TaskItem : ScheduleItem
 
     public override bool IsValid()
     {
-        return !string.IsNullOrWhiteSpace(Title)
-            && Deadline != default
-            && Enum.IsDefined(typeof(Priority), Priority)
-            && Enum.IsDefined(typeof(Status), Status);
+        if (Title == null || Title.Trim() == "")
+        {
+            return false;
+        }
+
+        if (Deadline == default(DateTime))
+        {
+            return false;
+        }
+
+        if (!Enum.IsDefined(typeof(Priority), Priority))
+        {
+            return false;
+        }
+
+        if (!Enum.IsDefined(typeof(Status), Status))
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public override bool Overlaps(ScheduleItem other)
@@ -45,19 +73,35 @@ public class TaskItem : ScheduleItem
             return false;
         }
 
-        if (other is TaskItem task)
+        TaskItem? task = other as TaskItem;
+        if (task != null)
         {
-            return Deadline == task.Deadline;
+            if (Deadline == task.Deadline)
+            {
+                return true;
+            }
         }
 
-        if (other is ReminderItem reminder)
+        ReminderItem? reminder = other as ReminderItem;
+        if (reminder != null)
         {
-            return Deadline == reminder.RemindTime;
+            if (Deadline == reminder.RemindTime)
+            {
+                return true;
+            }
         }
 
-        if (other is EventItem ev && ev.TimeRange != null && ev.TimeRange.IsValid())
+        EventItem? ev = other as EventItem;
+        if (ev != null)
         {
-            return Deadline >= ev.TimeRange.StartTime && Deadline < ev.TimeRange.EndTime;
+            if (ev.TimeRange != null && ev.TimeRange.IsValid())
+            {
+                if (Deadline >= ev.TimeRange.StartTime &&
+                    Deadline < ev.TimeRange.EndTime)
+                {
+                    return true;
+                }
+            }
         }
 
         return false;

@@ -1,8 +1,10 @@
+using System;
+
 public abstract class ScheduleItem
 {
+    private string _title = "";
+    private string _description = "";
     private string _id;
-    private string _title;
-    private string _description;
     private Priority _priority;
     private Status _status;
     private DateTime _createdAt;
@@ -10,7 +12,6 @@ public abstract class ScheduleItem
     public string Id
     {
         get { return _id; }
-        set { _id = value; }
     }
 
     public string Title
@@ -40,7 +41,6 @@ public abstract class ScheduleItem
     public DateTime CreatedAt
     {
         get { return _createdAt; }
-        set { _createdAt = value; }
     }
 
     protected ScheduleItem()
@@ -51,9 +51,19 @@ public abstract class ScheduleItem
         _priority = Priority.Normal;
     }
 
-    public abstract string Display();
+    public void MarkDone()
+    {
+        _status = Status.Done;
+    }
+
+    public void Cancel()
+    {
+        _status = Status.Canceled;
+    }
 
     public abstract string GetTypeName();
+
+    public abstract string Display();
 
     public abstract bool IsValid();
 

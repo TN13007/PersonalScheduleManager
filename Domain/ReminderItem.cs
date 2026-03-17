@@ -1,3 +1,5 @@
+using System;
+
 public class ReminderItem : ScheduleItem
 {
     private DateTime _remindTime;
@@ -29,7 +31,16 @@ public class ReminderItem : ScheduleItem
 
     public override string Display()
     {
-        return $"[{GetTypeName()}] {Title} | Remind At: {RemindTime:yyyy-MM-dd HH:mm} | Priority: {Priority} | Status: {Status}";
+        string timeText = RemindTime.ToString("yyyy-MM-dd HH:mm");
+
+        string result =
+            "[" + GetTypeName() + "] " +
+            Title +
+            " | Remind At: " + timeText +
+            " | Priority: " + Priority +
+            " | Status: " + Status;
+
+        return result;
     }
 
     public override string GetTypeName()
@@ -39,11 +50,32 @@ public class ReminderItem : ScheduleItem
 
     public override bool IsValid()
     {
-        return !string.IsNullOrWhiteSpace(Title)
-            && RemindTime != default
-            && RemindOffset >= TimeSpan.Zero
-            && Enum.IsDefined(typeof(Priority), Priority)
-            && Enum.IsDefined(typeof(Status), Status);
+        if (Title == null || Title.Trim() == "")
+        {
+            return false;
+        }
+
+        if (RemindTime == default(DateTime))
+        {
+            return false;
+        }
+
+        if (RemindOffset < TimeSpan.Zero)
+        {
+            return false;
+        }
+
+        if (!Enum.IsDefined(typeof(Priority), Priority))
+        {
+            return false;
+        }
+
+        if (!Enum.IsDefined(typeof(Status), Status))
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public override bool Overlaps(ScheduleItem other)
@@ -53,19 +85,35 @@ public class ReminderItem : ScheduleItem
             return false;
         }
 
-        if (other is ReminderItem reminder)
+        ReminderItem? reminder = other as ReminderItem;
+        if (reminder != null)
         {
-            return RemindTime == reminder.RemindTime;
+            if (RemindTime == reminder.RemindTime)
+            {
+                return true;
+            }
         }
 
-        if (other is TaskItem task)
+        TaskItem? task = other as TaskItem;
+        if (task != null)
         {
-            return RemindTime == task.Deadline;
+            if (RemindTime == task.Deadline)
+            {
+                return true;
+            }
         }
 
-        if (other is EventItem ev && ev.TimeRange != null && ev.TimeRange.IsValid())
+        EventItem? ev = other as EventItem;
+        if (ev != null)
         {
-            return RemindTime >= ev.TimeRange.StartTime && RemindTime < ev.TimeRange.EndTime;
+            if (ev.TimeRange != null && ev.TimeRange.IsValid())
+            {
+                if (RemindTime >= ev.TimeRange.StartTime &&
+                    RemindTime < ev.TimeRange.EndTime)
+                {
+                    return true;
+                }
+            }
         }
 
         return false;
@@ -75,7 +123,7 @@ public class ReminderItem : ScheduleItem
     {
         if (offset < TimeSpan.Zero)
         {
-            throw new ArgumentException("Offset cannot be negative.", nameof(offset));
+            throw new ArgumentException("Offset cannot be negative.", "offset");
         }
 
         _remindOffset = offset;
