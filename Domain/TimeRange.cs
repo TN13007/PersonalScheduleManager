@@ -3,19 +3,17 @@ public class TimeRange
     private DateTime _startTime;
     private DateTime _endTime;
 
-    public DateTime StartTime
+   public DateTime StartTime
     {
         get { return _startTime; }
-        set { _startTime = value; }
     }
 
     public DateTime EndTime
     {
         get { return _endTime; }
-        set { _endTime = value; }
     }
 
-    public TimeRange(DateTime startTime, DateTime endTime)//abc
+    public TimeRange(DateTime startTime, DateTime endTime)
     {
         _startTime = startTime;
         _endTime = endTime;
