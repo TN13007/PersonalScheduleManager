@@ -89,8 +89,4 @@ public class ConsoleMenu
         throw new NotImplementedException();
     }
 
-    public void Run()
-    {
-        throw new NotImplementedException();
-    }
-}
+
